@@ -14,7 +14,6 @@ class EntryScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
         yield Static("Фиксация тренировки")
-        # Select типа тренировки
         yield Select(
             options=[
                 ("Push ups", "push_ups"),
@@ -23,7 +22,6 @@ class EntryScreen(Screen):
             id="type_select",
             prompt="Тип тренировки",
         )
-        # Переключатель "была/не была" можно сделать как Input или Select
         yield Select(
             options=[("Была", "yes"), ("Не была", "no")],
             id="was_done_select",
@@ -50,12 +48,8 @@ class EntryScreen(Screen):
         was_done = (was_done_select.value == "yes")
         comment = comment_input.value.strip()
 
-        add_workout(
-            was_done=was_done, 
-            w_type=w_type, comment=comment
-            )
+        add_workout(was_done=was_done, w_type=w_type, comment=comment)
 
-        # Очистить комментарий и показать уведомление
         comment_input.value = ""
         self.app.notify("Тренировка сохранена!")
 

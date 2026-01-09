@@ -1,0 +1,27 @@
+#history_title {
+    padding: 1 0 0 1;
+    text-style: bold;
+}
+
+#summary_title {
+    padding: 1 0 0 1;
+    text-style: bold;
+}
+
+#total, #push_ups, #straight_set {
+    padding-left: 2;
+}
+
+#workouts_table {
+    height: 1fr;
+}
+
+#reset_button {
+    margin-top: 1;
+    margin-left: 1;
+}
+
+#confirm_text {
+    padding-left: 2;
+    color: yellow;
+}

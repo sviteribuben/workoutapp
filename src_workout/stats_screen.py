@@ -1,8 +1,8 @@
 from textual.screen import Screen
-from textual.widgets import Header, Footer, Static, Button
+from textual.widgets import Header, Footer, Static, Button, DataTable
 from textual.app import ComposeResult
 
-from storage import get_stats, reset_data
+from storage import get_stats, get_all_workouts, reset_data
 
 
 class StatsScreen(Screen):
@@ -14,6 +14,12 @@ class StatsScreen(Screen):
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
+
+        # Таблица с деталями по дням
+        self.table = DataTable(id="workouts_table")
+        yield self.table
+        
+        # Итоги
         self.total_widget = Static(id="total")
         self.push_widget = Static(id="push_ups")
         self.straight_widget = Static(id="straight_set")
@@ -22,14 +28,38 @@ class StatsScreen(Screen):
         yield self.straight_widget
 
         # Кнопка сброса
-        yield Button("Сбросить прогресс (R)", id="reset_button", variant="error")
+        yield Button("Сбросить прогресс (R)", id="reset_button", variant="primary")
         self.confirm_widget = Static("", id="confirm_text")
         yield self.confirm_widget
 
         yield Footer()
 
     def on_mount(self) -> None:
+        # Настраиваем столбцы таблицы один раз
+        self.table.add_columns("Дата", "Статус тренировки", "Тип тренировки", "Коммент")
+        self.table.zebra_stripes = True
+        self.table.cursor_type = "row"
+        self.refresh_all()
+
+    def refresh_all(self) -> None:
+        self.refresh_table()
         self.refresh_stats()
+
+    def refresh_table(self) -> None:
+        self.table.clear()
+        workouts = get_all_workouts()
+        workouts = sorted(workouts, key=lambda w: w["date"])
+
+        for w in workouts:
+            status = "Была" if w["was_done"] else "Не была"
+            if w["type"] == "push_ups":
+                w_type = "Push ups"
+            elif w["type"] == "straight_set":
+                w_type = "Strainge set"
+            else:
+                w_type = w["type"]
+            comment = w.get("comment", "")
+            self.table.add_row(w["date"], status, w_type, comment)
 
     def refresh_stats(self) -> None:
         stats = get_stats()

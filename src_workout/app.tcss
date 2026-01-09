@@ -8,7 +8,7 @@
     text-style: bold;
 }
 
-#total, #push_ups, #straight_set {
+#total, #push_ups, #strength_set {
     padding-left: 2;
 }
 

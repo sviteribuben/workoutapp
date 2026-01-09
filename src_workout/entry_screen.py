@@ -18,7 +18,7 @@ class EntryScreen(Screen):
         yield Select(
             options=[
                 ("Push ups", "push_ups"),
-                ("Strainge set", "straight_set"),
+                ("Strengh set", "strength_set"),
             ],
             id="type_select",
             prompt="Тип тренировки",

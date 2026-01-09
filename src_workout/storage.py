@@ -46,11 +46,11 @@ def get_stats() -> dict:
     workouts = [w for w in data.get("workouts", []) if w["was_done"]]
     total = len(workouts)
     push_ups = sum(1 for w in workouts if w["type"] == "push_ups")
-    straight = sum(1 for w in workouts if w["type"] == "straight_set")
+    strength = sum(1 for w in workouts if w["type"] == "strength_set")
     return {
         "total": total,
         "push_ups": push_ups,
-        "straight_set": straight,
+        "strength_set": strength,
     }
 
 def reset_data() -> None:

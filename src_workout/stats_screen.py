@@ -23,10 +23,10 @@ class StatsScreen(Screen):
         # Итоги
         self.total_widget = Static(id="total")
         self.push_widget = Static(id="push_ups")
-        self.straight_widget = Static(id="straight_set")
+        self.strength_widget = Static(id="strength_set")
         yield self.total_widget
         yield self.push_widget
-        yield self.straight_widget
+        yield self.strength_widget
 
         # Кнопка сброса
         yield Button("Сбросить прогресс (R)", id="reset_button", variant="primary")
@@ -55,8 +55,8 @@ class StatsScreen(Screen):
             status = "Была" if w["was_done"] else "Не была"
             if w["type"] == "push_ups":
                 w_type = "Push ups"
-            elif w["type"] == "straight_set":
-                w_type = "Strainge set"
+            elif w["type"] == "strength_set":
+                w_type = "Strengh set"
             else:
                 w_type = w["type"]
             comment = w.get("comment", "")
@@ -66,7 +66,7 @@ class StatsScreen(Screen):
         stats = get_stats()
         self.total_widget.update(f"Всего тренировок: {stats['total']}")
         self.push_widget.update(f"Push ups: {stats['push_ups']}")
-        self.straight_widget.update(f"Strainge set: {stats['straight_set']}")
+        self.strength_widget.update(f"Strength set: {stats['strength_set']}")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "reset_button":

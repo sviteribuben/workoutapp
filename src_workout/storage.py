@@ -4,7 +4,8 @@ from datetime import date
 from typing import Any
 
 
-DATA_FILE = Path("workouts.json")
+# Save JSON file in the same directory as this module (src_workout)
+DATA_FILE = Path(__file__).parent / "workouts.json"
 
 def load_data() -> dict:
     if not DATA_FILE.exists() or DATA_FILE.stat().st_size == 0:

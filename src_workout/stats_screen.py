@@ -3,6 +3,7 @@ from textual.widgets import Header, Footer, Static, Button, DataTable
 from textual.app import ComposeResult
 
 from storage import get_stats, get_all_workouts, reset_data
+from messages import WorkoutSaved
 
 
 class StatsScreen(Screen):
@@ -87,6 +88,9 @@ class StatsScreen(Screen):
 
     def action_go_entry(self) -> None:
         self.app.pop_screen()  # или self.app.switch_screen("entry")
+
+    def on_workout_saved(self, event: WorkoutSaved) -> None:
+        self.refresh_all()
 
     def action_quit(self) -> None:
         self.app.exit()

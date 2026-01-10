@@ -60,11 +60,6 @@ uv sync
 
 3. **Запустите приложение**:
 ```bash
-uv run python src_workout/app.py
-```
-
-Или используйте более короткую команду:
-```bash
 uv run src_workout/app.py
 ```
 
@@ -148,16 +143,10 @@ uv sync --dev
 uv run ty check .
 ```
 
-Или проверьте весь проект:
-
-```bash
-uv run ty check
-```
-
 ### Запуск линтера
 
 ```bash
-uv run ruff check src_workout/
+uv run ruff check .
 ```
 
 ## 📄 Лицензия
